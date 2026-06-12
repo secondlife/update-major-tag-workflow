@@ -1,18 +1,20 @@
 # update-major-release-workflow
 
-A small shared workflow to bump major semver tag (ex `v1`) on a repository when
-a new release (ex. `v1.0.2`) is published. Example use:
+Bump the major semver tag (such as `v1`) on a repository when a new release (such as `v1.0.2`) is published. Example:
 
-```yaml
-# .github/workflows/update-major-tag.yaml
-
-name: Update Major Tag
+``` yaml
+# .github/workflows/release.yaml
+name: Release
 
 on:
   release:
     types: [published]
 
+permissions:
+  # Grant permission to push tags.
+  contents: write
+
 jobs:
-  tag:
+  update-major-tag:
     uses: secondlife/update-major-tag-workflow/.github/workflows/update-major-tag.yaml@v1
 ```
