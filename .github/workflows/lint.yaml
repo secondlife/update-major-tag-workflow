@@ -1,0 +1,26 @@
+name: Lint
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  # This workflow requires no special permissions.
+  contents: read
+
+jobs:
+  pre-commit:
+    name: Lint with pre-commit
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        # Look at the code really in the branch when run by pull request.
+        ref: ${{ github.event.pull_request.head.sha || github.sha }}
+    - uses: actions/setup-python@v6
+    - name: Lint with pre-commit
+      env:
+        # Don't error when run on pushes to `main`.
+        SKIP: no-commit-to-branch
+      uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd  # v3.0.1
