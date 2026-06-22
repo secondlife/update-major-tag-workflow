@@ -1,9 +1,22 @@
 name: Update Major Release Tag
 
+# Reusable workflow files must be in `.github/workflows/`. While it would be
+# easier to find this definition if it were at the root of the project, GitHub
+# Actions does not support running workflows from there.
+# <https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows#calling-a-reusable-workflow>
+
 on:
   workflow_call:
   release:
     types: [published]
+
+# Note this doesn't grant the `contents: write` permission: the calling workflow
+# must do that. Document the need for it (& give up extra permissions the caller
+# may have granted unnecessarily).
+# <https://docs.github.com/en/actions/reference/workflows-and-actions/reusing-workflow-configurations#supported-keywords-for-jobs-that-call-a-reusable-workflow>
+permissions:
+  # Retain permission to push tags.
+  contents: write
 
 jobs:
   update-tag:
