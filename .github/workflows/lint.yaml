@@ -18,7 +18,7 @@ jobs:
       with:
         # Look at the code really in the branch when run by pull request.
         ref: ${{ github.event.pull_request.head.sha || github.sha }}
-    - uses: actions/setup-python@v6
+    - uses: actions/setup-python@v7
     - name: Lint with pre-commit
       env:
         # Don't error when run on pushes to `main`.
